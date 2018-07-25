@@ -34,6 +34,15 @@
                      <div key="blue" v-if="show" class="box"></div>
                      <div key="red" v-else class="red-box"></div>
                   </fade-transition>
+                  <fade-transition group :duration="300">
+                    <div class="box" 
+                        v-for="(item, index) in list" 
+                        @click="remove(index)"
+                        :key="item"
+                    >
+                    </div>
+                  </fade-transition>
+
               </div>
             </div>
              
@@ -92,7 +101,18 @@ export default {
       msg: 'My Vue.js Sandbox project',
       show: true,
       duration: 300,
+      list: [1, 2, 3, 4, 5],
       value1: '',
+    }
+  },
+
+  methods: {
+    remove(index) {
+      this.list.splice(index, 1);
+    },
+    addItem() {
+      let randomIndex = Math.floor(Math.random() * this.list.length);
+      this.list.splice(randomIndex, 0, Math.random());
     }
   }
 }
@@ -101,8 +121,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .box {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   margin-top: 20px;
   background-color: rgb(108, 141, 213);
   box-shadow: rgba(108, 141, 213, 0.5) 0px 6px 20px;
